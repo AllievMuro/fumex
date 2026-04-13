@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fumex — Fork Solana Mainnet in 5 Seconds</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#1A0A0F;--surf:#2A1520;--pri:#BE185D;--sec:#F9A8D4;--txt:#FDF2F8;--muted:#7A5A6A}
+body{background:var(--bg);color:var(--txt);font-family:'IBM Plex Sans',sans-serif;line-height:1.6}
+h1,h2,h3{font-family:'Crimson Pro',serif}
+a{color:inherit;text-decoration:none}
+nav{display:flex;align-items:center;justify-content:space-between;padding:20px 60px;position:sticky;top:0;background:var(--bg);z-index:99;border-bottom:1px solid #2A1520}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo svg{width:32px;height:32px}
+.nav-brand{font-family:'Crimson Pro',serif;font-size:1.4rem;font-weight:700;letter-spacing:2px}
+.nav-links{display:flex;gap:32px;font-size:.9rem;color:var(--muted)}
+.nav-links a:hover{color:var(--txt)}
+.btn{display:inline-block;background:var(--pri);color:var(--txt);padding:10px 24px;border-radius:8px;font-family:'IBM Plex Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;border:none;transition:opacity .2s}
+.btn:hover{opacity:.85}
+.btn-outline{background:transparent;border:1px solid var(--pri);color:var(--sec)}
+section{padding:80px 60px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:100px 60px}
+.hero-eyebrow{font-size:.8rem;font-weight:600;letter-spacing:3px;color:var(--pri);text-transform:uppercase;margin-bottom:16px}
+.hero h1{font-size:3.2rem;line-height:1.15;margin-bottom:20px}
+.hero h1 span{color:var(--sec)}
+.typewriter{overflow:hidden;border-right:2px solid var(--pri);white-space:nowrap;width:0;animation:type 2.8s steps(40) .5s forwards,blink .7s step-end infinite}
+@keyframes type{to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+.hero-sub{color:var(--muted);font-size:1.05rem;margin-bottom:32px;max-width:440px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero-visual{background:var(--surf);border-radius:8px;padding:28px;font-family:'IBM Plex Mono',monospace;font-size:.82rem;line-height:1.8;position:relative;overflow:hidden}
+.hero-visual::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--pri),transparent)}
+.cli-line{color:var(--muted)}.cli-cmd{color:var(--sec)}.cli-ok{color:#4ade80}.cli-info{color:var(--pri)}.cli-dim{color:#4a3040}
+.section-label{font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--pri);margin-bottom:12px;font-weight:600}
+.section-title{font-size:2.2rem;margin-bottom:16px}
+.section-sub{color:var(--muted);max-width:520px;margin-bottom:48px}
+.zigzag-row{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:72px}
+.zigzag-row.flip{direction:rtl}.zigzag-row.flip>*{direction:ltr}
+.zz-visual{background:var(--surf);border-radius:8px;padding:32px;min-height:200px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+.zz-visual::after{content:'';position:absolute;bottom:0;right:0;width:80px;height:80px;background:var(--pri);opacity:.06;border-radius:50% 0 0 0}
+.tag{display:inline-block;background:#3a1828;color:var(--sec);font-size:.75rem;padding:3px 10px;border-radius:4px;margin-bottom:8px;font-weight:500}
+.trace-line{display:flex;align-items:center;gap:10px;font-size:.8rem;padding:6px 0;border-bottom:1px solid #3a1828}
+.trace-line:last-child{border:none}
+.depth{color:var(--muted);width:20px}.instr{color:var(--sec);flex:1}.delta{color:#4ade80;font-size:.75rem}
+.features{background:var(--surf);border-radius:8px;padding:72px 60px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.feat-card{background:var(--bg);border-radius:8px;padding:28px}
+.feat-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--pri),#9D174D);border-radius:6px;margin-bottom:16px;display:flex;align-items:center;justify-content:center}
+.feat-card h3{font-size:1.1rem;margin-bottom:8px}
+.feat-card p{font-size:.88rem;color:var(--muted);line-height:1.6}
+.roadmap{max-width:720px;margin:0 auto}
+.road-item{display:grid;grid-template-columns:120px 1fr;gap:32px;margin-bottom:48px;position:relative}
+.road-item::before{content:'';position:absolute;left:120px;top:12px;bottom:-48px;width:1px;background:var(--surf)}
+.road-item:last-child::before{display:none}
+.road-date{font-size:.85rem;color:var(--muted);padding-top:4px;text-align:right}
+.road-dot{width:10px;height:10px;border-radius:50%;background:var(--pri);position:absolute;left:115px;top:6px}
+.road-dot.done{box-shadow:0 0 0 3px #3a1828}
+.road-dot.active{box-shadow:0 0 12px var(--pri)}
+.road-content h3{font-size:1.15rem;margin-bottom:8px}
+.road-content p{font-size:.88rem;color:var(--muted)}
+.road-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.pill{font-size:.72rem;padding:2px 8px;border-radius:4px;background:#3a1828;color:var(--sec)}
+.pill.done{background:#1a3a28;color:#4ade80}
+.cta-section{text-align:center;max-width:600px;margin:0 auto}
+.cta-section h2{font-size:2.8rem;margin-bottom:16px}
+.cta-section p{color:var(--muted);margin-bottom:32px}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+footer{padding:40px 60px;border-top:1px solid var(--surf);display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:.85rem}
+@media(max-width:768px){nav{padding:16px 20px}.nav-links{display:none}.hero,.zigzag-row{grid-template-columns:1fr;padding:60px 20px;gap:32px}.hero{padding:60px 20px}section{padding:60px 20px}.features{padding:60px 20px}.features-grid{grid-template-columns:1fr}.road-item{grid-template-columns:80px 1fr}.footer{padding:32px 20px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fmx-grad1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#BE185D"/><stop offset="100%" stop-color="#9D174D"/></linearGradient><linearGradient id="fmx-grad2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F9A8D4"/><stop offset="100%" stop-color="#BE185D"/></linearGradient><filter id="fmx-glow"><feGaussianBlur stdDeviation="3" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="512" height="512" rx="96" fill="#1A0A0F"/><ellipse cx="256" cy="256" rx="180" ry="160" fill="#BE185D" opacity="0.07"/><rect x="120" y="130" width="72" height="252" rx="8" fill="url(#fmx-grad1)" filter="url(#fmx-glow)"/><rect x="120" y="130" width="200" height="68" rx="8" fill="url(#fmx-grad1)" filter="url(#fmx-glow)"/><rect x="120" y="226" width="160" height="60" rx="8" fill="url(#fmx-grad1)" filter="url(#fmx-glow)"/><polygon points="230,148 265,148 242,198 272,198 215,280 228,230 200,230 230,148" fill="#1A0A0F"/><rect x="316" y="126" width="72" height="260" rx="8" fill="url(#fmx-grad1)" filter="url(#fmx-glow)" transform="rotate(30 352 256)"/><rect x="316" y="126" width="72" height="260" rx="8" fill="url(#fmx-grad1)" filter="url(#fmx-glow)" transform="rotate(-30 352 256)"/><circle cx="352" cy="256" r="32" fill="#1A0A0F"/><polygon points="352,228 372,256 352,284 332,256" fill="url(#fmx-grad2)" filter="url(#fmx-glow)"/></svg>
+    <span class="nav-brand">FUMEX</span>
+  </div>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#docs">Docs</a>
+  </div>
+  <a href="#cta" class="btn">Get Early Access</a>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">Solana Devtools · MVP</div>
+    <h1>Fork mainnet.<br><span class="typewriter">Ship with confidence.</span></h1>
+    <p class="hero-sub">Snapshot a precise slice of Solana mainnet state — oracles, CPI dependencies, sysvars — into a local validator with a single command. Under 5 seconds.</p>
+    <div class="hero-cta">
+      <a href="#cta" class="btn">Get Early Access</a>
+      <a href="#how" class="btn btn-outline">See How It Works</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="cli-line">$ <span class="cli-cmd">fumex fork --tx 4xK9mR...vQpL</span></div>
+    <div class="cli-info">▸ Resolving CPI account tree...</div>
+    <div class="cli-dim">  └ marginfi::lending_account_borrow</div>
+    <div class="cli-dim">  └ pyth::price_feed (SOL/USD)</div>
+    <div class="cli-dim">  └ sysvar::clock · sysvar::rent</div>
+    <div class="cli-info">▸ Cloning 47 accounts via getMultipleAccounts</div>
+    <div class="cli-info">▸ Pinning slot=312847190 unix_ts=1735042800</div>
+    <div class="cli-ok">✓ Local validator ready in 3.8s</div>
+    <div class="cli-ok">✓ CPI trace streaming on :8900</div>
+    <div style="margin-top:12px;font-size:.75rem;color:var(--muted)">Anchor drop-in → FumexProvider.fork()</div>
+  </div>
+</div>
+
+<section id="how">
+  <div style="text-align:center;margin-bottom:64px">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">No mock accounts. No manual flags. No surprises.</h2>
+  </div>
+  <div class="zigzag-row">
+    <div class="zz-visual">
+      <span class="tag">Account Resolution</span>
+      <div style="font-size:.82rem;color:var(--muted);margin-bottom:8px">Full CPI tree traversal</div>
+      <div class="trace-line"><span class="depth">L0</span><span class="instr">marginfi::lending_account_borrow</span><span class="delta">-2.4 SOL</span></div>
+      <div class="trace-line"><span class="depth">L1</span><span class="instr">pyth::get_price_no_older_than</span><span class="delta">read</span></div>
+      <div class="trace-line"><span class="depth">L1</span><span class="instr">token::transfer</span><span class="delta">-800 USDC</span></div>
+      <div class="trace-line"><span class="depth">L2</span><span class="instr">spl_token::check_account_owner</span><span class="delta">read</span></div>
+    </div>
+    <div>
+      <h3 style="font-size:1.6rem;margin-bottom:12px">Automatic dependency resolution</h3>
+      <p style="color:var(--muted);margin-bottom:16px">Pass a transaction signature and Fumex walks the entire CPI call chain, identifying every account touched at every invocation depth — program accounts, PDAs, oracle feeds, and sysvars.</p>
+      <p style="color:var(--muted)">All 47 accounts are fetched in a single <code style="color:var(--sec);background:#2A1520;padding:2px 6px;border-radius:4px">getMultipleAccounts</code> batch. Zero manual <code style="color:var(--sec);background:#2A1520;padding:2px 6px;border-radius:4px">--clone</code> flags required.</p>
+    </div>
+  </div>
+  <div class="zigzag-row flip">
+    <div class="zz-visual">
+      <span class="tag">Deterministic Time</span>
+      <div style="font-size:.75rem;color:var(--muted);font-family:monospace;line-height:2">
+        <div style="color:var(--sec)">slot: <span style="color:#4ade80">312847190</span></div>
+        <div style="color:var(--sec)">unix_timestamp: <span style="color:#4ade80">1735042800</span></div>
+        <div style="color:var(--sec)">epoch: <span style="color:#4ade80">722</span></div>
+        <div style="color:var(--muted);margin-top:8px">↳ pinned at fork time</div>
+        <div style="color:var(--muted)">↳ identical across every test run</div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.6rem;margin-bottom:12px">Deterministic clock & slot injection</h3>
+      <p style="color:var(--muted);margin-bottom:16px">Time-sensitive programs like Marginfi collateral checks and Raydium CLMM tick boundary logic require exact slot and timestamp values. Fumex pins these at fork time.</p>
+      <p style="color:var(--muted)">Every test run — locally or in CI — executes against the exact same temporal context. No flaky oracle staleness errors, ever.</p>
+    </div>
+  </div>
+  <div class="zigzag-row">
+    <div class="zz-visual">
+      <span class="tag">Anchor Integration</span>
+      <div style="font-size:.8rem;font-family:monospace;color:var(--muted);line-height:2">
+        <div style="color:#4a3040">// Before</div>
+        <div style="color:var(--muted)">const provider = AnchorProvider.env();</div>
+        <div style="color:#4a3040;margin-top:8px">// After (zero other changes)</div>
+        <div><span style="color:var(--sec)">const</span> provider = <span style="color:var(--pri)">await</span> <span style="color:#4ade80">FumexProvider.fork(</span></div>
+        <div style="padding-left:16px"><span style="color:var(--txt)">"4xK9mR...vQpL"</span></div>
+        <div><span style="color:#4ade80">);</span></div>
+      </div>
+    </div>
+    <div>
+      <h3 style="font-size:1.6rem;margin-bottom:12px">One-line Anchor drop-in</h3>
+      <p style="color:var(--muted);margin-bottom:16px">Replace <code style="color:var(--sec);background:#2A1520;padding:2px 6px;border-radius:4px">AnchorProvider.env()</code> with <code style="color:var(--sec);background:#2A1520;padding:2px 6px;border-radius:4px">FumexProvider.fork()</code> and your existing test suite runs against live mainnet state. No other changes.</p>
+      <p style="color:var(--muted)">Fixture files serialize the entire cloned account set to deterministic JSON — commit to your repo so teammates reproduce exact state without a live RPC call.</p>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="features">
+  <div style="text-align:center;margin-bottom:48px">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything the Solana test harness was missing</h2>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FDF2F8" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <h3>CPI Trace Streaming</h3>
+      <p>Decoded instruction names, account roles, and lamport deltas per invocation depth streamed to stdout or your CI runner in real time.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FDF2F8" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <h3>Pyth & Switchboard Oracles</h3>
+      <p>Price feed accounts cloned at fork time, pinned deterministically. No stale price errors, no custom mock feeds to maintain.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FDF2F8" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <h3>Replayable Fixtures</h3>
+      <p>Commit deterministic JSON snapshots to your repo. Any teammate reproduces byte-for-byte account state without touching a live RPC endpoint.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FDF2F8" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <h3>BPF Program Introspection</h3>
+      <p>BPF Loader v2/v3 program accounts resolved and cloned automatically — no need to separately specify executable accounts in your test setup.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FDF2F8" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+      <h3>Protocol Resolvers (Q3)</h3>
+      <p>Automatic account inclusion for Jupiter, Kamino, Drift, Marginfi, and Raydium — tick arrays, bank vaults, and auxiliary accounts identified without manual specification.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FDF2F8" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+      <h3>GitHub Actions Native</h3>
+      <p>Published npm package with documented CI integration. Hosted snapshot cache in Q3 eliminates live RPC calls from your pipeline entirely.</p>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap" style="padding:80px 60px">
+  <div style="text-align:center;margin-bottom:64px">
+    <div class="section-label">Roadmap</div>
+    <h2 class="section-title">Built in public, shipped on schedule</h2>
+  </div>
+  <div class="roadmap">
+    <div class="road-item">
+      <div class="road-date">Q1 2026</div>
+      <div class="road-dot done"></div>
+      <div class="road-content">
+        <h3>CLI & Core Fork Engine</h3>
+        <p>fumex fork --tx resolves full CPI tree, clones accounts, injects deterministic clock/slot, and streams structured trace output.</p>
+        <div class="road-pills"><span class="pill done">✓ CLI shipped</span><span class="pill done">✓ CPI resolver</span><span class="pill done">✓ Clock injection</span><span class="pill done">✓ Trace output</span></div>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-date">Q2 2026</div>
+      <div class="road-dot active"></div>
+      <div class="road-content">
+        <h3>TypeScript SDK & Anchor Provider</h3>
+        <p>FumexProvider.fork() drop-in, fixture file serialization, npm package, and GitHub Actions example workflow for Anchor test suites.</p>
+        <div class="road-pills"><span class="pill">FumexProvider</span><span class="pill">Fixture JSON</span><span class="pill">npm package</span><span class="pill">CI workflow</span></div>
+      </div>
+    </div>
+    <div class="road-item">
+      <div class="road-date">Q3 2026</div>
+      <div class="road-dot"></div>
+      <div class="road-content">
+        <h3>Protocol Resolvers & Snapshot Cache</h3>
+        <p>Auto-resolvers for Jupiter, Kamino, Drift, and Marginfi. Hosted cache eliminates live RPC from CI. Web dashboard for browsing and sharing fixtures.</p>
+        <div class="road-pills"><span class="pill">Protocol plugins</span><span class="pill">Hosted cache</span><span class="pill">Web dashboard</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cta" style="padding:80px 60px">
+  <div class="cta-section">
+    <div class="section-label" style="text-align:center">Early Access</div>
+    <h2>Stop writing mocks.<br>Fork the real thing.</h2>
+    <p>Join the waitlist and get CLI access when Q2 SDK ships. Built for Anchor teams shipping on Solana mainnet.</p>
+    <div class="cta-btns">
+      <a href="mailto:hello@fumex.dev" class="btn">Request Early Access</a>
+      <a href="#" class="btn btn-outline">Read the Docs</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div style="display:flex;align-items:center;gap:8px">
+    <svg viewBox="0 0 512 512" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><rect width="512" height="512" rx="96" fill="#1A0A0F"/><rect x="120" y="130" width="72" height="252" rx="8" fill="#BE185D"/><rect x="120" y="130" width="200" height="68" rx="8" fill="#BE185D"/><rect x="120" y="226" width="160" height="60" rx="8" fill="#BE185D"/><polygon points="230,148 265,148 242,198 272,198 215,280 228,230 200,230 230,148" fill="#1A0A0F"/><rect x="316" y="126" width="72" height="260" rx="8" fill="#BE185D" transform="rotate(30 352 256)"/><rect x="316" y="126" width="72" height="260" rx="8" fill="#BE185D" transform="rotate(-30 352 256)"/><circle cx="352" cy="256" r="32" fill="#1A0A0F"/><polygon points="352,228 372,256 352,284 332,256" fill="#F9A8D4"/></svg>
+    <span style="font-family:'Crimson Pro',serif;font-weight:700;letter-spacing:2px">FUMEX</span>
+  </div>
+  <span>© 2026 Fumex. Built for Solana developers.</span>
+  <div style="display:flex;gap:24px"><a href="#" style="color:var(--muted)">GitHub</a><a href="#" style="color:var(--muted)">Twitter</a><a href="#" style="color:var(--muted)">Discord</a></div>
+</footer>
+
+</body>
+</html>

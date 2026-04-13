@@ -1,0 +1,124 @@
+{
+  "profile": {
+    "project_name": "Fumex",
+    "tagline": "Simulate any Solana program interaction against a forked mainnet state in under 5 seconds.",
+    "full_description": "Fumex is a local forking tool for Solana developers that snapshots a precise slice of mainnet account state — including CPI dependencies, Pyth/Switchboard oracle feeds, and sysvars — into a local validator with a single CLI command. It resolves the full account tree required by a transaction's CPI chain automatically, eliminating the need for manual --clone flags or hand-rolled mock accounts. Deterministic clock and slot injection ensures time-sensitive programs like Marginfi collateral checks or Raydium CLMM tick logic behave identically across every test run. A structured CPI trace streams decoded instruction names, account roles, and lamport deltas per invocation level to the terminal or CI runner. Anchor integration requires only swapping AnchorProvider.env() for FumexProvider.fork(), and replayable fixture files let any teammate reproduce byte-for-byte state without a live RPC call.",
+    "category": "devtools",
+    "stage": "mvp",
+    "chain": "solana",
+    "tech_stack": [
+      "Rust",
+      "Solana test-validator",
+      "Anchor test harness provider API",
+      "Solana JSON-RPC getMultipleAccounts / getProgramAccounts",
+      "BPF Loader v2/v3 program introspection",
+      "Pyth Network on-chain price feeds",
+      "Switchboard V2 oracle accounts",
+      "TypeScript SDK",
+      "Node.js CLI (Commander.js)",
+      "GitHub Actions runner integration",
+      "Borsh serialization"
+    ],
+    "ai_tools": [
+      "Cursor",
+      "Claude Code",
+      "Cline"
+    ],
+    "team_description": "The founding team includes Solana protocol engineers with prior experience building Anchor-based DeFi programs and CI infrastructure for multi-protocol integrations. They have shipped production programs composing across Jupiter, Kamino, and Drift, and have direct firsthand experience with the test-validator limitations Fumex solves.",
+    "roadmap": [
+      {
+        "quarter": "Q1 2026",
+        "status": "completed",
+        "goal": "Ship a working CLI that forks mainnet state from a transaction signature and runs a local validator with the resolved account set.",
+        "deliverables": [
+          "fumex fork --tx <sig> command that traverses the full CPI account tree and clones all touched accounts via getMultipleAccounts",
+          "Deterministic clock/slot injection layer that pins unix_timestamp, slot, and epoch values at fork time",
+          "Structured CPI trace output to stdout showing decoded instruction names, lamport deltas, and return data per invocation depth"
+        ]
+      },
+      {
+        "quarter": "Q2 2026",
+        "status": "in_progress",
+        "goal": "Release the TypeScript SDK with Anchor provider drop-in and replayable fixture file support for CI pipelines.",
+        "deliverables": [
+          "FumexProvider.fork() Anchor-compatible provider that replaces AnchorProvider.env() with zero other test file changes",
+          "Fixture file serialization: deterministic JSON snapshots of all cloned accounts committable to the repo and reproducible without a live RPC call",
+          "GitHub Actions example workflow and published npm package with documented integration steps for Anchor test suites"
+        ]
+      },
+      {
+        "quarter": "Q3 2026",
+        "status": "upcoming",
+        "goal": "Add protocol-aware account resolvers for Jupiter, Kamino, Drift, and Marginfi and launch a hosted snapshot cache to reduce RPC load.",
+        "deliverables": [
+          "Protocol resolver plugins that automatically identify and include program-specific auxiliary accounts (e.g., Raydium CLMM tick arrays, Marginfi bank vaults) without manual specification",
+          "Hosted snapshot cache service that stores and serves recent mainnet account slices so CI runners skip live RPC calls entirely",
+          "Web dashboard for browsing, diffing, and sharing named fixture snapshots across team members"
+        ]
+      }
+    ],
+    "links": {
+      "website": "",
+      "github": "",
+      "telegram": ""
+    },
+    "logo_path": "/Users/aliev_murat/Documents/Claude/Projects/SURGE/startup-generator/output/projects/Fumex/logo.svg",
+    "pitch_deck_path": "/Users/aliev_murat/Documents/Claude/Projects/SURGE/startup-generator/output/projects/Fumex/pitch_deck.pptx",
+    "pitch_video_url": ""
+  },
+  "metadata": {
+    "generated_at": "2026-04-13T21:01:00.859137",
+    "source": "startup_generator",
+    "founder": "Founded by AI",
+    "original_idea": {
+      "project_name": "Fumex",
+      "tagline": "Simulate any Solana program interaction against a forked mainnet state in under 5 seconds.",
+      "category": "devtools",
+      "stage": "mvp",
+      "chain": "solana",
+      "problem": "Solana developers writing programs with complex CPI call chains — Jupiter aggregator routes, Marginfi collateral checks, Raydium CLMM ticks — have no reliable way to test against real mainnet state locally. Solana's test-validator requires manual account cloning via `--clone` flags, produces non-deterministic slot timing, and silently drops cross-program invocations that depend on live oracle feeds. In 2026, with Solana programs routinely composing across 8-12 protocols in a single transaction, this makes pre-deployment testing a guessing game.",
+      "solution": "Fumex snapshots a precise slice of mainnet state — specific accounts, programs, sysvars, and Pyth/Switchboard oracle accounts — into a local validator fork with a single CLI command or SDK call. It intercepts and replays the exact account set required by a transaction's CPI tree, injects deterministic clock and slot values, and streams structured program logs with decoded instruction data and lamport diffs back to the developer's terminal or CI runner. Fumex integrates with Anchor's test harness via a drop-in provider swap and produces a replayable fixture file any teammate can reproduce byte-for-byte.",
+      "target_user": "Solana program developers and protocol engineers at DeFi teams using Anchor or native Rust who run integration test suites in CI and are tired of mocking oracle accounts by hand or discovering CPI failures only after deploying to devnet.",
+      "unique_insight": "The real bottleneck in Solana development isn't writing programs — it's the 20-minute feedback loop between code change and a meaningful integration test against live protocol state, and every team is solving this with fragile bespoke scripts instead of shared tooling.",
+      "tech_stack": [
+        "Rust",
+        "Solana test-validator (local validator fork)",
+        "Anchor test harness provider API",
+        "Solana JSON-RPC gPA / getMultipleAccounts snapshot",
+        "Pyth Network on-chain price feeds",
+        "Switchboard V2 oracles",
+        "BPF loader v2/v3 program introspection",
+        "TypeScript SDK",
+        "GitHub Actions runner integration"
+      ],
+      "core_features": [
+        "One-command mainnet state snapshot: `fumex fork --tx <sig>` clones every account touched by a transaction's full CPI tree",
+        "Deterministic clock injection — pin slot, epoch, and unix_timestamp so time-sensitive programs behave identically across runs",
+        "Structured CPI trace output: decoded instruction names, account roles, lamport deltas, and return data per invocation level",
+        "Anchor provider drop-in: replace `AnchorProvider.env()` with `FumexProvider.fork()` — zero other test changes required",
+        "Replayable fixture files: serialized account snapshots committed to the repo so any CI runner reproduces the exact state without a live RPC call"
+      ],
+      "why_now": "Solana's composability exploded in 2025 — programs now routinely CPI into Drift, Kamino, and Jupiter in a single instruction, and the test-validator tooling hasn't kept pace with that complexity. With Solana's market share of new DeFi deployments at an all-time high in 2026, the pain of broken devnet tests is costing teams days per sprint and the ecosystem has no dedicated solution."
+    },
+    "design_dna": {
+      "heading_font": "Crimson Pro",
+      "body_font": "IBM Plex Sans",
+      "palette_name": "deep_burgundy",
+      "palette": {
+        "name": "deep_burgundy",
+        "bg": "#1A0A0F",
+        "surface": "#2A1520",
+        "accent": "#BE185D",
+        "accent2": "#F9A8D4",
+        "text": "#FDF2F8",
+        "dim": "#7A5A6A",
+        "mode": "dark"
+      },
+      "layout": "zigzag",
+      "mood": "flat_minimal",
+      "animation": "typewriter",
+      "corner_radius": "8px"
+    },
+    "logo_style": "negative_space"
+  }
+}
