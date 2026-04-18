@@ -1,0 +1,125 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "source": "startup_generator",
+    "generated_from": "output/projects/Fumex/profile.json",
+    "notes": "Field names and values match Surge Discovery create form (Full Mode, 9 steps)"
+  },
+  "project_name": "Fumex",
+  "tagline": "Simulate any Solana program interaction against a forked mainnet state in under 5 seconds.",
+  "full_description": "Fumex is a local forking tool for Solana developers that snapshots a precise slice of mainnet account state — including CPI dependencies, Pyth/Switchboard oracle feeds, and sysvars — into a local validator with a single CLI command. It resolves the full account tree required by a transaction's CPI chain automatically, eliminating the need for manual --clone flags or hand-rolled mock accounts. Deterministic clock and slot injection ensures time-sensitive programs like Marginfi collateral checks",
+  "category": "DevTools",
+  "stage": "MVP",
+  "logo": {
+    "local_path": "/Users/aliev_murat/Documents/Claude/Projects/SURGE/startup-generator/output/projects/Fumex/logo.svg",
+    "url": "https://github.com/AllievMuro/fumex/raw/main/logo.svg",
+    "format": "svg",
+    "note": "Surge requires PNG or JPG. Convert SVG → PNG before upload."
+  },
+  "ai_tools": [
+    "Cursor",
+    "Claude Code",
+    "Cline"
+  ],
+  "tech_stack": {
+    "languages": [
+      "Rust",
+      "TypeScript SDK"
+    ],
+    "dev_tools": [
+      "Solana test-validator",
+      "Anchor test harness provider API",
+      "Solana JSON-RPC getMultipleAccounts / getProgramAccounts",
+      "BPF Loader v2/v3 program introspection",
+      "Pyth Network on-chain price feeds",
+      "Switchboard V2 oracle accounts",
+      "Node.js CLI (Commander.js)",
+      "GitHub Actions runner integration",
+      "Borsh serialization"
+    ]
+  },
+  "pitch_deck": {
+    "local_path": "/Users/aliev_murat/Documents/Claude/Projects/SURGE/startup-generator/output/projects/Fumex/pitch_deck.pptx",
+    "url": "https://github.com/AllievMuro/fumex/raw/main/pitch_deck.pptx",
+    "format": "pptx",
+    "note": "Surge requires PDF. Convert PPTX → PDF before upload."
+  },
+  "whitepaper": {
+    "local_path": "",
+    "url": ""
+  },
+  "pitch_video": {
+    "url": "",
+    "source": "youtube",
+    "note": "Must be public/unlisted YouTube URL. Max 800 seconds."
+  },
+  "links": {
+    "website": "https://AllievMuro.github.io/fumex",
+    "github": "https://github.com/AllievMuro/fumex",
+    "telegram": "",
+    "x_twitter": ""
+  },
+  "team_description": "The founding team includes Solana protocol engineers with prior experience building Anchor-based DeFi programs and CI infrastructure for multi-protocol integrations. They have shipped production programs composing across Jupiter, Kamino, and Drift, and have direct firsthand experience with the test-validator limitations Fumex solves.",
+  "team_members": [],
+  "roadmap": [
+    {
+      "quarter": "Q1 2026",
+      "status": "Completed",
+      "goal": "Ship a working CLI that forks mainnet state from a transaction signature and runs a local validator with the resolved account set.",
+      "deliverables": [
+        "fumex fork --tx <sig> command that traverses the full CPI account tree and clones all touched accounts via getMultipleAccounts",
+        "Deterministic clock/slot injection layer that pins unix_timestamp, slot, and epoch values at fork time",
+        "Structured CPI trace output to stdout showing decoded instruction names, lamport deltas, and return data per invocation depth"
+      ]
+    },
+    {
+      "quarter": "Q2 2026",
+      "status": "In Progress",
+      "goal": "Release the TypeScript SDK with Anchor provider drop-in and replayable fixture file support for CI pipelines.",
+      "deliverables": [
+        "FumexProvider.fork() Anchor-compatible provider that replaces AnchorProvider.env() with zero other test file changes",
+        "Fixture file serialization: deterministic JSON snapshots of all cloned accounts committable to the repo and reproducible without a live RPC call",
+        "GitHub Actions example workflow and published npm package with documented integration steps for Anchor test suites"
+      ]
+    },
+    {
+      "quarter": "Q3 2026",
+      "status": "Upcoming",
+      "goal": "Add protocol-aware account resolvers for Jupiter, Kamino, Drift, and Marginfi and launch a hosted snapshot cache to reduce RPC load.",
+      "deliverables": [
+        "Protocol resolver plugins that automatically identify and include program-specific auxiliary accounts (e.g., Raydium CLMM tick arrays, Marginfi bank vaults) without manual specification",
+        "Hosted snapshot cache service that stores and serves recent mainnet account slices so CI runners skip live RPC calls entirely",
+        "Web dashboard for browsing, diffing, and sharing named fixture snapshots across team members"
+      ]
+    }
+  ],
+  "revenue_sources": {
+    "stripe": null,
+    "paypal": null,
+    "shopify": null
+  },
+  "user_data": {
+    "google_analytics": null,
+    "mixpanel": null
+  },
+  "publish_readiness": {
+    "required": {
+      "logo": true,
+      "project_name": true,
+      "tagline": true,
+      "category": true,
+      "full_description": true,
+      "team": true,
+      "pitch_deck": true,
+      "pitch_video": false
+    },
+    "optional": {
+      "tech_stack": true,
+      "roadmap": true,
+      "socials": true,
+      "revenue_sources": false,
+      "user_data": false
+    },
+    "summary": "Required: 7/8, Optional: 3/5"
+  }
+}
